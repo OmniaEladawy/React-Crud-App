@@ -8,28 +8,41 @@ import Add from "./pages/Add";
 import Edit from "./pages/Edit";
 import Details from "./pages/Details";
 import Index from "./pages/Index";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RouteLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Index />,
       },
       {
-        path: "add",
+        path: "post",
+        element: <Index />,
+      },
+      {
+        path: "post/add",
         element: <Add />,
       },
-
       {
-        path: ":id/edit",
-        element: <Edit />,
+        path: "post/:id",
+        element: <Details />,
+        loader: ({ params }) => {
+          if (isNaN(params.id)) {
+            throw new Response("Bad Request", {
+              statusText: "Please sure to enter number post id",
+              status: 400,
+            });
+          }
+        },
       },
       {
-        path: ":id",
-        element: <Details />,
+        path: "post/:id/edit",
+        element: <Edit />,
       },
     ],
   },
