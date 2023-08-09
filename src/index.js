@@ -9,6 +9,8 @@ import Edit from "./pages/Edit";
 import Details from "./pages/Details";
 import Index from "./pages/Index";
 import ErrorPage from "./pages/ErrorPage";
+import { Provider } from "react-redux";
+import store from "./state";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +52,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </Provider>
 );
