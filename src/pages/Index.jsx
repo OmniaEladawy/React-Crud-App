@@ -5,14 +5,13 @@ import { fetchPosts } from "../state/postSlice";
 
 const Index = () => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const { records, loading, error } = useSelector((state) => state.posts);
 
   React.useEffect(() => {
     dispatch(fetchPosts());
   }, []);
-  console.log("posts", posts);
 
-  return <PostList />;
+  return <PostList data={records} loading={loading} error={error} />;
 };
 
 export default Index;
