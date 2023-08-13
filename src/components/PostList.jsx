@@ -1,11 +1,8 @@
 import React from "react";
-import { Table, Button, ButtonGroup } from "react-bootstrap";
+import { Table } from "react-bootstrap";
+import PostItem from "./PostItem";
 
-const PostList = ({ data, loading, error }) => {
-  React.useEffect(() => {
-    console.log("error", error);
-  }, [error]);
-
+const PostList = ({ data }) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -16,30 +13,7 @@ const PostList = ({ data, loading, error }) => {
         </tr>
       </thead>
       <tbody>
-        {loading ? (
-          <tr>
-            <td colSpan={3}>Loading please wait ...</td>
-          </tr>
-        ) : error ? (
-          <tr>
-            <td colSpan={3}>{error}!</td>
-          </tr>
-        ) : (
-          data.map((item, index) => {
-            return (
-              <tr key={item.id}>
-                <td>#{index + 1}</td>
-                <td>{item.title}</td>
-                <td>
-                  <ButtonGroup aria-label="Basic example">
-                    <Button variant="success">Edit</Button>
-                    <Button variant="danger">Delete</Button>
-                  </ButtonGroup>
-                </td>
-              </tr>
-            );
-          })
-        )}
+        <PostItem data={data} />
       </tbody>
     </Table>
   );
