@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
-const PostItem = ({ data }) => {
+const PostItem = ({ data, deleteRecord }) => {
   const record = data.map((item, index) => {
     return (
       <tr key={item.id}>
@@ -10,7 +10,14 @@ const PostItem = ({ data }) => {
         <td>
           <ButtonGroup aria-label="Basic example">
             <Button variant="success">Edit</Button>
-            <Button variant="danger">Delete</Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                deleteRecord(item.id);
+              }}
+            >
+              Delete
+            </Button>
           </ButtonGroup>
         </td>
       </tr>
