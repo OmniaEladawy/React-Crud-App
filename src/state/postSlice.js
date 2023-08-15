@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { enqueueSnackbar } from "notistack";
 
 const initialState = { records: [], loading: false, error: null };
 
@@ -24,6 +25,7 @@ export const deletePost = createAsyncThunk(
       await fetch(`http://localhost:5000/posts/${id}`, {
         method: "DELETE",
       });
+      enqueueSnackbar("Record deleted successfully", { variant: "error" });
       return id;
     } catch (error) {
       return rejectWithValue(error.message);

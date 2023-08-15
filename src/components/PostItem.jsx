@@ -1,7 +1,16 @@
 import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
+import ConfirmModal from "./ConfirmModal";
 
 const PostItem = ({ data, deleteRecord }) => {
+  const [modalShow, setModalShow] = React.useState(false);
+  const [itemId, setItemId] = React.useState(0);
+  const handleDelete = (id) => {
+    setModalShow(true);
+    // deleteRecord(itemId);
+    setItemId(id);
+  };
+
   const record = data.map((item, index) => {
     return (
       <tr key={item.id}>
@@ -13,7 +22,7 @@ const PostItem = ({ data, deleteRecord }) => {
             <Button
               variant="danger"
               onClick={() => {
-                deleteRecord(item.id);
+                handleDelete(item.id);
               }}
             >
               Delete
@@ -23,7 +32,17 @@ const PostItem = ({ data, deleteRecord }) => {
       </tr>
     );
   });
-  return <>{record}</>;
+  return (
+    <>
+      {record}
+      <ConfirmModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        itemId={itemId}
+        deleteRecord={deleteRecord}
+      />
+    </>
+  );
 };
 
 export default PostItem;
